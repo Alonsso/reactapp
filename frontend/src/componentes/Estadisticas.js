@@ -12,16 +12,14 @@ export default class Estadisticas extends Component {
         this.getEtherPrice();
         this.setState({inicio : true})
     }
-    //response.data.ethereum.usd * Math.random()
+
     async getEtherPrice(){
         await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then((response) => {
-            this.setState({etherPrice: response.data.ethereum.usd * Math.random()})
+            this.setState({etherPrice: response.data.ethereum.usd})
         });
     }
     
     componentDidUpdate(){
-        // this.setState({inicio: false})
-        // console.log(this.state.inicio + "Se actualiza")
     }
 
     componentDidMount(){
@@ -30,8 +28,39 @@ export default class Estadisticas extends Component {
 
     render() {
         return (
-        <div>Estadisticas {this.state.etherPrice}
-            <button type="submit" onClick={(e) => {this.handleClick(e)}}>Log in</button>
+        <div className="container d-flex flex-column justify-content-center align-items-center">
+            <h1 className='display-4'>Estadísticas</h1>
+            <br></br>
+            <table className="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Colección</th>
+                <th scope="col">Volumen</th>
+                <th scope="col">Owners</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
         </div>
         
         )

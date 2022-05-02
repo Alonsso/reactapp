@@ -1,0 +1,32 @@
+GET http://localhost:3001/api/notes
+
+###
+
+POST http://localhost:3001/Registro
+Content-Type: application/json
+
+{
+    "user_name": "Jairo",
+    "user_email": "jacc.dvlpr@gmail.com",
+    "user_password": "works27" 
+}
+
+###
+
+POST http://localhost:3001/Login
+Content-Type: application/json
+
+{
+    "user_name" : "Jairo",
+    "user_password" : "works27"
+}
+
+###
+
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "user_name" : "Jairo",
+    "user_password" : "works27"
+}

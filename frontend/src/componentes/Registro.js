@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios'
-import {Button} from 'react-bootstrap'
+import usersService from '../services/users_service'
 
 export default function Registro() {
 
@@ -9,21 +9,11 @@ export default function Registro() {
 
   const [password, setPasswod] = useState("12345")
 
-  const [etherPrice, setEtherPrice] = useState(0);
+  const [users, setUsers] = useState([])
 
   useEffect(()=>{
-    console.log(etherPrice, new Date())
-  },[etherPrice])
-
-  useEffect(()=>{
-    return () => {
-      console.log("2", new Date())
-    }
-  })
-
-  useEffect(()=>{
-    console.log("3" + password, new Date())
-  }, [email, password])
+    usersService.getAllUsers().then(initialUsers => setUsers(initialUsers));
+  }, [])
 
   function handleClick(e){
       e.preventDefault();
@@ -32,15 +22,15 @@ export default function Registro() {
 
   async function getEtherPrice(){
     await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then((response) => {
-        setEtherPrice(response.data.ethereum.usd * Math.random())
+        
     });
   }
 
   return (
-    <div>
+    <div className="container d-flex flex-column justify-content-center align-items-center">
+      <h1 className='display-4'>Registro</h1>
         <br></br>
         <form>
-          <label>{etherPrice}
             Username
             <br></br>
             <input
@@ -48,7 +38,6 @@ export default function Registro() {
               type="text"
             />
             <br></br>
-          </label>
           <br></br>
           <label>
             Email
@@ -74,7 +63,14 @@ export default function Registro() {
           <button type="submit" onClick={(e) => {handleClick(e)}}>Log in</button>
           <br></br>
         </form>
-        <Button variant="dark" type="submit" onClick={(e) => {handleClick(e)}}>Log in</Button>
+        <div>
+          {users.map((item)=>{
+            return <div key={item.user_id}>
+              <h1>{item.user_name}</h1>
+              <h2>{item.user_email}</h2>
+            </div>
+          })}
+        </div>
       </div>
   )
 }
